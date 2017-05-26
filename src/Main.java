@@ -22,6 +22,7 @@ public class Main{
 
             Matrix matrixObject = new Matrix(term, word2vecModel, csvObject);
             Normalize normalize = new Normalize(matrixObject.getMatrix());
+            ValueMatrix valueMatrix = new ValueMatrix(term, csvObject ,word2vecModel , normalize);
 
 
         }

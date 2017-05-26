@@ -41,7 +41,7 @@ public class Matrix {
     private Double[][] fillMatrix(RelatednessCalculator[] rcs, String term) {
 
         int i = 0;
-        int index = Arrays.asList(csvObject.getTermList()).indexOf("term");
+        int index = Arrays.asList(csvObject.getTermList()).indexOf(term);
         for (String word : word2vecModel.getOutputWordList(index)) {
 
             int j = 0;
