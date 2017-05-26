@@ -10,7 +10,7 @@ public class CSV {
     private String[] termList;
     private String[] wordList;
 
-    public CSV(int l) {
+    public CSV() {
 
         //initialize arrays
         termList = new String[100];
@@ -18,7 +18,7 @@ public class CSV {
 
         //open CSV file & read from it
         try {
-            Scanner scan = new Scanner(new File("src/goldenstandard.csv"));
+            Scanner scan = new Scanner(new File("CSV/goldenstandard.csv"));
             int i = 0;
             while (scan.hasNextLine()) {
                 String line = scan.nextLine();
@@ -26,9 +26,9 @@ public class CSV {
 
                 termList[i] = lineArray[0];
                 StringBuilder temp= new StringBuilder();
-                for (int j=1; j< l+1; j++){
+                for (int j=1; j< Constants.L_GT_WORD_COUNT+1; j++){
                     temp.append(lineArray[j]);
-                    if (j!=l){
+                    if (j!=Constants.L_GT_WORD_COUNT){
                         temp.append(",");
                     }
                 }
