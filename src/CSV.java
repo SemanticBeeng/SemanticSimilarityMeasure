@@ -18,7 +18,7 @@ public class CSV {
 
         //open CSV file & read from it
         try {
-            Scanner scan = new Scanner(new File("CSV/goldenstandard.csv"));
+            Scanner scan = new Scanner(new File("CSV/lemmatizedGoldenStandard.csv"));
             int i = 0;
             while (scan.hasNextLine()) {
                 String line = scan.nextLine();

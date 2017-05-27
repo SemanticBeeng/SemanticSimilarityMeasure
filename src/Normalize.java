@@ -1,7 +1,8 @@
 /**
- * Created by Keetmalin on 5/26/2017.
+ * Created by Keetmalin on 5/26/2017
+ * Project - SemanticSimilarityMeasure
  */
-public class Normalize {
+class Normalize {
 
     private Double[][] normalizedMatrix =  new Double[4][Constants.C_CONSTANT * Constants.L_GT_WORD_COUNT];
     private double inf = Double.POSITIVE_INFINITY;
@@ -12,7 +13,7 @@ public class Normalize {
     private Double[] hso = {0.0 , 16.0};
     private Double[] lesk = {0.0, inf};
 
-    public Normalize(Double[][] matrix){
+    Normalize(Double[][] matrix){
 
         this.matrix = matrix;
 
@@ -91,7 +92,7 @@ public class Normalize {
         }
     }
 
-    public Double[][] getNormalizedMatrix(){
+    Double[][] getNormalizedMatrix(){
         return normalizedMatrix;
     }
 }

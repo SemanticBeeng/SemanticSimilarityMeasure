@@ -4,21 +4,20 @@ import edu.cmu.lti.ws4j.RelatednessCalculator;
 import edu.cmu.lti.ws4j.impl.*;
 import edu.cmu.lti.ws4j.util.WS4JConfiguration;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.function.DoubleUnaryOperator;
 
 /**
- * Created by Keetmalin on 5/26/2017.
+ * Created by Keetmalin on 5/26/2017
+ * Project - SemanticSimilarityMeasure
  */
-public class Matrix {
+class Matrix {
 
     private static ILexicalDatabase db = new NictWordNet();
     private Double[][] matrix = new Double[4][Constants.C_CONSTANT * Constants.L_GT_WORD_COUNT];
     private Word2vecModel word2vecModel;
     private CSV csvObject;
 
-    public Matrix(String term, Word2vecModel word2vecModel, CSV csvObject) {
+    Matrix(String term, Word2vecModel word2vecModel, CSV csvObject) {
 
         WS4JConfiguration.getInstance().setMFS(true);
 
@@ -38,7 +37,7 @@ public class Matrix {
     }
 
 
-    private Double[][] fillMatrix(RelatednessCalculator[] rcs, String term) {
+    private void fillMatrix(RelatednessCalculator[] rcs, String term) {
 
         int i = 0;
         int index = Arrays.asList(csvObject.getTermList()).indexOf(term);
@@ -49,19 +48,16 @@ public class Matrix {
 
                 double s = rc.calcRelatednessOfWords(term, word);
 
-                matrix[i][j] = s;
+                matrix[j][i] = s;
                 j++;
             }
             i++;
         }
 
 
-        return matrix;
-
-
     }
 
-    public Double[][] getMatrix(){
+    Double[][] getMatrix(){
         return matrix;
     }
 }

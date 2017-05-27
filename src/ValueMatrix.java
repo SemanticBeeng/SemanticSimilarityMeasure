@@ -1,9 +1,8 @@
-import jdk.nashorn.internal.codegen.DumpBytecode;
-
 import java.util.Arrays;
 
 /**
- * Created by Keetmalin on 5/26/2017.
+ * Created by Keetmalin on 5/26/2017
+ * Project - SemanticSimilarityMeasure
  */
 public class ValueMatrix {
 
@@ -11,7 +10,7 @@ public class ValueMatrix {
     private Normalize normalize;
     private Word2vecModel word2vecModel;
 
-    public ValueMatrix(String term, CSV csvObject, Word2vecModel word2vecModel, Normalize normalize){
+    ValueMatrix(String term, CSV csvObject, Word2vecModel word2vecModel, Normalize normalize){
 
         int index = Arrays.asList(csvObject.getTermList()).indexOf(term);
         this.word2vecModel = word2vecModel;
