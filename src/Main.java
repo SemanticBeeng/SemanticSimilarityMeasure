@@ -16,12 +16,19 @@ import edu.cmu.lti.ws4j.impl.Resnik;
 import edu.cmu.lti.ws4j.impl.WuPalmer;
 import edu.cmu.lti.ws4j.util.WS4JConfiguration;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
+
 public class Main {
 
     public static void main(String[] args) {
 
         //reading from CSV file
         CSV csvObject = new CSV();
+
+        ArrayList<ValueMatrix> valueMatrices = new ArrayList<ValueMatrix>();
+        ArrayList<MIMatrix> miMatrices = new ArrayList<MIMatrix>();
 
         //call word2vec model
         Word2vecModel word2vecModel = new Word2vecModel();
@@ -31,16 +38,29 @@ public class Main {
             Matrix matrixObject = new Matrix(term, word2vecModel, csvObject);
             Normalize normalize = new Normalize(matrixObject.getMatrix());
             ValueMatrix valueMatrix = new ValueMatrix(term, csvObject, word2vecModel, normalize);
+            MIMatrix miMatrix = new MIMatrix(term, csvObject, word2vecModel);
 
-            //call neural network
-            NeuralNetwork nn = new NeuralNetwork(2, 4, 1);
-            int maxRuns = 50000;
-            double minErrorCondition = 0.001;
-            nn.run(maxRuns, minErrorCondition);
+            valueMatrices.add(valueMatrix);
+            miMatrices.add(miMatrix);
+            System.out.println("Value Matrix for term = " + term + " , done");
 
+            if (Objects.equals(term, "lawyer")) break;;
+
+        }
+        //initiate Neural Network
+        NeuralNetwork neuralNetwork = new NeuralNetwork(Constants.NN_INPUT_LAYER, Constants.NN_HIDDEN_LAYER, Constants.NN_OUTPUT_LAYER);
+
+        for (ValueMatrix valueMatrix: valueMatrices){
+
+            neuralNetwork.setInputVector(valueMatrix.getValueMatrixDouble());
 
         }
 
+//        //call neural network
+//        NeuralNetwork nn = new NeuralNetwork(2, 4, 1);
+//        int maxRuns = 50000;
+//        double minErrorCondition = 0.001;
+//        nn.run(maxRuns, minErrorCondition);
 
         //run( "judge","lawyer" );
 

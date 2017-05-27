@@ -28,7 +28,7 @@ public class NeuralNetwork {
     final double momentum = 0.7f;
 
     // Inputs for xor problem
-    final double inputs[][] = { { 1, 1 }, { 1, 0 }, { 0, 1 }, { 0, 0 } };
+    double inputs[][];
 
     // Corresponding outputs, xor training data
     final double expectedOutputs[][] = { { 0 }, { 1 }, { 1 }, { 0 } };
@@ -204,6 +204,38 @@ public class NeuralNetwork {
                 con.setWeight(newWeight + momentum * con.getPrevDeltaWeight());
             }
         }
+    }
+
+    void setInputVector(double[][] inputVector){
+
+        this.inputs = inputVector;
+
+    }
+
+    int seek(String word, String[] array){
+        return Arrays.asList(array).indexOf(word);
+    }
+
+    float calculateError(CSV csvObject , MIMatrix miMatrix){
+
+        int tempSum = 0;
+
+        for (int i=0 ; i< Constants.L_GT_WORD_COUNT ; i++){
+
+            int x = 0;
+
+            if (seek(csvObject.getTermList()[i] , miMatrix.getMiMatrix()[1]) <Constants.L_GT_WORD_COUNT){
+                x = Constants.C_CONSTANT * Constants.L_GT_WORD_COUNT;
+            } else{
+                x = Constants.L_GT_WORD_COUNT - seek(csvObject.getTermList()[i] , miMatrix.getMiMatrix()[1]);
+            }
+
+            tempSum += x;
+
+
+        }
+
+        return 1-(tempSum/(Constants.C_CONSTANT * Constants.L_GT_WORD_COUNT * Constants.L_GT_WORD_COUNT));
     }
 
     void run(int maxSteps, double minError) {

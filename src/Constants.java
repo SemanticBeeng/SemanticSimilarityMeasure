@@ -8,5 +8,10 @@ class Constants {
     static int C_CONSTANT = 20;
     static int L_GT_WORD_COUNT = 10;
 
+    //Constants related to Neural Network
+    static int NN_INPUT_LAYER = 5;
+    static int NN_HIDDEN_LAYER = 10;
+    static int NN_OUTPUT_LAYER = 1;
+
 
 }

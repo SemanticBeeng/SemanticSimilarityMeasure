@@ -7,6 +7,7 @@ import java.util.Arrays;
 public class ValueMatrix {
 
     private Double[][] valueMatrix = new Double[Constants.C_CONSTANT * Constants.L_GT_WORD_COUNT][5];
+    private double[][] valueMatrixDouble = new double[Constants.C_CONSTANT * Constants.L_GT_WORD_COUNT][5];
     private Normalize normalize;
     private Word2vecModel word2vecModel;
 
@@ -27,13 +28,28 @@ public class ValueMatrix {
                 valueMatrix[i][2] = normalize.getNormalizedMatrix()[1][i];
                 valueMatrix[i][3] = normalize.getNormalizedMatrix()[2][i];
                 valueMatrix[i][4] = normalize.getNormalizedMatrix()[3][i];
+
+                valueMatrixDouble[i][0] = Double.parseDouble(word2vecModel.getOutputDistanceList(index)[i]);
+                valueMatrixDouble[i][1] = normalize.getNormalizedMatrix()[0][i];
+                valueMatrixDouble[i][2] = normalize.getNormalizedMatrix()[1][i];
+                valueMatrixDouble[i][3] = normalize.getNormalizedMatrix()[2][i];
+                valueMatrixDouble[i][4] = normalize.getNormalizedMatrix()[3][i];
             }
+
+
 
     }
 
     public Double[][] getValueMatrix(){
         return valueMatrix;
     }
+
+    public double[][] getValueMatrixDouble(){
+
+        return valueMatrixDouble;
+
+    }
+
 
 
 
