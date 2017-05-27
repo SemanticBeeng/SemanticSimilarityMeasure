@@ -30,13 +30,7 @@ class Normalize {
 
         for (int i = 0 ; i<Constants.C_CONSTANT * Constants.L_GT_WORD_COUNT ; i++){
 
-            Double temp = matrix[0][i];
-
-            //normalize the value
-
-            Double normalizedValue = 0.0;
-
-            normalizedMatrix[0][i] = normalizedValue;
+            normalizedMatrix[0][i] = matrix[0][i];
 
         }
     }
@@ -51,7 +45,7 @@ class Normalize {
 
             //normalize the value
 
-            Double normalizedValue = 0.0;
+            Double normalizedValue =( Math.exp(temp) - Math.exp(-temp))/(Math.exp(temp) + Math.exp(-temp));
 
             normalizedMatrix[1][i] = normalizedValue;
 
@@ -65,10 +59,11 @@ class Normalize {
         for (int i = 0 ; i<Constants.C_CONSTANT * Constants.L_GT_WORD_COUNT ; i++){
 
             Double temp = matrix[2][i];
+            Double m = 0.0625;
 
             //normalize the value
 
-            Double normalizedValue = 0.0;
+            Double normalizedValue = m * temp;
 
             normalizedMatrix[2][i] = normalizedValue;
 
@@ -85,7 +80,7 @@ class Normalize {
 
             //normalize the value
 
-            Double normalizedValue = 0.0;
+            Double normalizedValue =( Math.exp(temp) - Math.exp(-temp))/(Math.exp(temp) + Math.exp(-temp));
 
             normalizedMatrix[3][i] = normalizedValue;
 

@@ -20,23 +20,29 @@ public class Main {
 
     public static void main(String[] args) {
 
-//        //reading from CSV file
-//        CSV csvObject = new CSV();
-//
-//        //call word2vec model
-//        Word2vecModel word2vecModel = new Word2vecModel();
-//
-//        for (String term : csvObject.getTermList()) {
-//
-//            Matrix matrixObject = new Matrix(term, word2vecModel, csvObject);
-//            Normalize normalize = new Normalize(matrixObject.getMatrix());
-//            ValueMatrix valueMatrix = new ValueMatrix(term, csvObject, word2vecModel, normalize);
-//
-//
-//        }
+        //reading from CSV file
+        CSV csvObject = new CSV();
+
+        //call word2vec model
+        Word2vecModel word2vecModel = new Word2vecModel();
+
+        for (String term : csvObject.getTermList()) {
+
+            Matrix matrixObject = new Matrix(term, word2vecModel, csvObject);
+            Normalize normalize = new Normalize(matrixObject.getMatrix());
+            ValueMatrix valueMatrix = new ValueMatrix(term, csvObject, word2vecModel, normalize);
+
+            //call neural network
+            NeuralNetwork nn = new NeuralNetwork(2, 4, 1);
+            int maxRuns = 50000;
+            double minErrorCondition = 0.001;
+            nn.run(maxRuns, minErrorCondition);
 
 
-        run( "judge","lawyer" );
+        }
+
+
+        //run( "judge","lawyer" );
 
     }
 
