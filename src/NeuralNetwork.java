@@ -291,7 +291,7 @@ public class NeuralNetwork {
         for (int p = 0; p < inputs.length; p++) {
             System.out.print("INPUTS: ");
             for (int x = 0; x < layers[0]; x++) {
-                System.out.print(inputs[p][x] + " ");
+        //        System.out.print(inputs[p][x] + " ");
             }
 
             System.out.print("EXPECTED: ");
