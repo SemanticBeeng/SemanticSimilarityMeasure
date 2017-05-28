@@ -213,17 +213,17 @@ public class NeuralNetwork {
 
     }
 
-    int seek(String word, String[] array){
+    double seek(String word, String[] array){
         return Arrays.asList(array).indexOf(word);
     }
 
-    float calculateError(CSV csvObject , MImatrix miMatrix){
+    double calculateError(CSV csvObject , MImatrix miMatrix){
 
-        int tempSum = 0;
+        double tempSum = 0;
 
         for (int i=0 ; i< Constants.L_GT_WORD_COUNT ; i++){
 
-            int x = 0;
+            double x = 0;
 
             if (seek(csvObject.getTermList()[i] , miMatrix.getWordArray()) < Constants.L_GT_WORD_COUNT){
                 x = 1;
