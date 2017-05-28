@@ -28,7 +28,7 @@ public class Main {
         CSV csvObject = new CSV();
 
 //        ArrayList<ValueMatrix> valueMatrices = new ArrayList<ValueMatrix>();
-        ArrayList<MIMatrix> miMatrices = new ArrayList<MIMatrix>();
+//        ArrayList<MIMatrix> miMatrices = new ArrayList<MIMatrix>();
 
         ValueMatrix[] valueMatrices = new ValueMatrix[100];
 
@@ -42,9 +42,9 @@ public class Main {
             Normalize normalize = new Normalize(matrixObject.getMatrix());
             ValueMatrix valueMatrix = new ValueMatrix(term, csvObject, word2vecModel, normalize);
             MIMatrix miMatrix = new MIMatrix(term, csvObject, word2vecModel);
+            valueMatrix.setMiMatrix(miMatrix);
 
             valueMatrices[i] = valueMatrix;
-            miMatrices.add(miMatrix);
             System.out.println("Value Matrix for term = " + term + " , done");
 
             i++;

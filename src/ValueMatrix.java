@@ -10,6 +10,7 @@ public class ValueMatrix {
     private double[][] valueMatrixDouble = new double[Constants.C_CONSTANT * Constants.L_GT_WORD_COUNT][5];
     private Normalize normalize;
     private Word2vecModel word2vecModel;
+    private MIMatrix miMatrix;
 
     ValueMatrix(String term, CSV csvObject, Word2vecModel word2vecModel, Normalize normalize){
 
@@ -38,6 +39,10 @@ public class ValueMatrix {
 
 
 
+    }
+
+    public void setMiMatrix(MIMatrix miMatrix){
+        this.miMatrix = miMatrix;
     }
 
     public Double[][] getValueMatrix(){
