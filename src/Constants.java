@@ -10,7 +10,7 @@ class Constants {
 
     //Constants related to Neural Network
     static int NN_INPUT_LAYER = 5;
-    static int NN_HIDDEN_LAYER = 10;
+    static int NN_HIDDEN_LAYER = 100;
     static int NN_OUTPUT_LAYER = 1;
 
 

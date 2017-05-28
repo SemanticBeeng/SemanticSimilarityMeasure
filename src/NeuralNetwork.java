@@ -28,7 +28,7 @@ public class NeuralNetwork {
     final double momentum = 0.7f;
 
     // Inputs for xor problem
-    double inputs[][];
+    ValueMatrix[] inputs;
 
     // Corresponding outputs, xor training data
     final double expectedOutputs[][] = { { 0 }, { 1 }, { 1 }, { 0 } };
@@ -144,23 +144,25 @@ public class NeuralNetwork {
     /**
      * all output propagate back
      *
-     * @param expectedOutput
+     * @param calculatedErrors
      *            first calculate the partial derivative of the error with
      *            respect to each of the weight leading into the output neurons
      *            bias is also updated here
      */
-    public void applyBackpropagation(double expectedOutput[]) {
+    public void applyBackpropagation(double calculatedErrors[]) {
 
-        // error check, normalize value ]0;1[
-        for (int i = 0; i < expectedOutput.length; i++) {
-            double d = expectedOutput[i];
-            if (d < 0 || d > 1) {
-                if (d < 0)
-                    expectedOutput[i] = 0 + epsilon;
-                else
-                    expectedOutput[i] = 1 - epsilon;
-            }
-        }
+        double errors[] =new double[calculatedErrors.length];
+
+//        // error check, normalize value ]0;1[
+//        for (int i = 0; i < expectedOutput.length; i++) {
+//            double d = expectedOutput[i];
+//            if (d < 0 || d > 1) {
+//                if (d < 0)
+//                    expectedOutput[i] = 0 + epsilon;
+//                else
+//                    expectedOutput[i] = 1 - epsilon;
+//            }
+//        }
 
         int i = 0;
         for (Neuron n : outputLayer) {
@@ -168,10 +170,10 @@ public class NeuralNetwork {
             for (Connection con : connections) {
                 double ak = n.getOutput();
                 double ai = con.leftNeuron.getOutput();
-                double desiredOutput = expectedOutput[i];
+                double error = calculatedErrors[i];
 
                 double partialDerivative = -ak * (1 - ak) * ai
-                        * (desiredOutput - ak);
+                        * error;
                 double deltaWeight = -learningRate * partialDerivative;
                 double newWeight = con.getWeight() + deltaWeight;
                 con.setDeltaWeight(deltaWeight);
@@ -190,11 +192,10 @@ public class NeuralNetwork {
                 int j = 0;
                 for (Neuron out_neu : outputLayer) {
                     double wjk = out_neu.getConnection(n.id).getWeight();
-                    double desiredOutput = (double) expectedOutput[j];
+//                    double desiredOutput = (double) expectedOutput[j];
                     double ak = out_neu.getOutput();
+                    sumKoutputs = sumKoutputs+ (-(calculatedErrors[j]) * ak * (1 - ak) * wjk);
                     j++;
-                    sumKoutputs = sumKoutputs
-                            + (-(desiredOutput - ak) * ak * (1 - ak) * wjk);
                 }
 
                 double partialDerivative = aj * (1 - aj) * ai * sumKoutputs;
@@ -206,9 +207,9 @@ public class NeuralNetwork {
         }
     }
 
-    void setInputVector(double[][] inputVector){
+    void setInputVector(ValueMatrix[] valueMatrices){
 
-        this.inputs = inputVector;
+        this.inputs = valueMatrices;
 
     }
 
@@ -224,7 +225,7 @@ public class NeuralNetwork {
 
             int x = 0;
 
-            if (seek(csvObject.getTermList()[i] , miMatrix.getMiMatrix()[1]) <Constants.L_GT_WORD_COUNT){
+            if (seek(csvObject.getTermList()[i] , miMatrix.getMiMatrix()[1]) < Constants.L_GT_WORD_COUNT){
                 x = Constants.C_CONSTANT * Constants.L_GT_WORD_COUNT;
             } else{
                 x = Constants.L_GT_WORD_COUNT - seek(csvObject.getTermList()[i] , miMatrix.getMiMatrix()[1]);
