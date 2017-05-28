@@ -226,9 +226,10 @@ public class NeuralNetwork {
             int x = 0;
 
             if (seek(csvObject.getTermList()[i] , miMatrix.getWordArray()) < Constants.L_GT_WORD_COUNT){
-                x = Constants.C_CONSTANT * Constants.L_GT_WORD_COUNT;
+                x = 1;
             } else{
-                x = Constants.L_GT_WORD_COUNT - seek(csvObject.getTermList()[i] , miMatrix.getWordArray());
+                x = ((Constants.C_CONSTANT * Constants.L_GT_WORD_COUNT) - seek(csvObject.getTermList()[i] ,
+                        miMatrix.getWordArray()))/ ((Constants.C_CONSTANT * Constants.L_GT_WORD_COUNT) - Constants.L_GT_WORD_COUNT);
             }
 
             tempSum += x;
@@ -236,7 +237,7 @@ public class NeuralNetwork {
 
         }
 
-        return 1-(tempSum/(Constants.C_CONSTANT * Constants.L_GT_WORD_COUNT * Constants.L_GT_WORD_COUNT));
+        return 1-(tempSum/(Constants.L_GT_WORD_COUNT));
     }
 
     void run(int maxSteps, double minError,CSV csvObject) {
