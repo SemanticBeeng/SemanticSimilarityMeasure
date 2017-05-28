@@ -246,9 +246,20 @@ public class NeuralNetwork {
         for (i = 0; i < maxSteps && error > minError; i++) {
             error = 0;
             for (int p = 0; p < inputs.length; p++) {
-                setInput(inputs[p]);
 
-                activate();
+                double[][] values=inputs[p].getValueMatrixDouble();
+                double[] E=new double[values.length];
+
+                for (int j = 0; j <values.length ; j++) {
+                    setInput(values[j]);
+                    activate();
+                    E[j]= getOutput()[0];
+                }
+                
+
+
+
+
 
                 output = getOutput();
                 resultOutputs[p] = output;
