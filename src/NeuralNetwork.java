@@ -217,7 +217,7 @@ public class NeuralNetwork {
         return Arrays.asList(array).indexOf(word);
     }
 
-    float calculateError(CSV csvObject , Rmatrix rmatrix){
+    float calculateError(CSV csvObject , MImatrix miMatrix){
 
         int tempSum = 0;
 
@@ -225,10 +225,10 @@ public class NeuralNetwork {
 
             int x = 0;
 
-            if (seek(csvObject.getTermList()[i] , rmatrix.getRmatrix()[1]) < Constants.L_GT_WORD_COUNT){
+            if (seek(csvObject.getTermList()[i] , miMatrix.getWordArray()) < Constants.L_GT_WORD_COUNT){
                 x = Constants.C_CONSTANT * Constants.L_GT_WORD_COUNT;
             } else{
-                x = Constants.L_GT_WORD_COUNT - seek(csvObject.getTermList()[i] , rmatrix.getRmatrix()[1]);
+                x = Constants.L_GT_WORD_COUNT - seek(csvObject.getTermList()[i] , miMatrix.getWordArray());
             }
 
             tempSum += x;
@@ -239,7 +239,7 @@ public class NeuralNetwork {
         return 1-(tempSum/(Constants.C_CONSTANT * Constants.L_GT_WORD_COUNT * Constants.L_GT_WORD_COUNT));
     }
 
-    void run(int maxSteps, double minError) {
+    void run(int maxSteps, double minError,CSV csvObject) {
         int i;
         // Train neural network until minError reached or maxSteps exceeded
         double error = 1;
@@ -251,30 +251,30 @@ public class NeuralNetwork {
             for (int p = 0; p < inputs.length; p++) {
 
                 double[][] values=inputs[p].getValueMatrixDouble();
-                double[] E=new double[values.length];
                 String[] words=inputs[p].getRmatrix().getRmatrix()[0];
                 MImatrix mim=new MImatrix(words);
 
                 for (int j = 0; j <values.length ; j++) {
                     setInput(values[j]);
                     activate();
-                    mim.updateValueAt(j,getOutput()[0]); //update e_j
+                    mim.updateValueAt(j,getOutput()[0]); //update e_j. Use [0] directly because we know the output layer has only one item
                 }
                 //Now sort MImatrix
                 Collections.sort(mim.getWordItems());
+                mim.buildWordArray();
+
+                error=calculateError(csvObject , mim);  //"error" is double calculate error returns "float" this might cause problems.
 
 
+                //output = getOutput();
+                //resultOutputs[p] = output;
 
+                //for (int j = 0; j < expectedOutputs[p].length; j++) {
+                //    double err = Math.pow(output[j] - expectedOutputs[p][j], 2);
+                 //   error += err;
+                //}
 
-                output = getOutput();
-                resultOutputs[p] = output;
-
-                for (int j = 0; j < expectedOutputs[p].length; j++) {
-                    double err = Math.pow(output[j] - expectedOutputs[p][j], 2);
-                    error += err;
-                }
-
-                applyBackpropagation(expectedOutputs[p]);
+                applyBackpropagation(new double[]{error}); //Only one item in the array because the output layer has only one neuron
             }
         }
 

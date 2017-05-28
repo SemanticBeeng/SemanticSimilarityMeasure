@@ -6,6 +6,7 @@ import java.util.Collections;
  */
 public class MImatrix {
     private ArrayList<wordItem> wordItems=new ArrayList<>();
+    String[] words=null;
 
     public static void main(String[] args) {
         MImatrix mim = new MImatrix(new String[]{"a", "b"});
@@ -26,6 +27,19 @@ public class MImatrix {
     public void updateValueAt(int i,double d){
         getWordItems().get(i).setVal(d);
     }
+
+    public void buildWordArray(){
+        String[] words=new String[wordItems.size()];
+        for (int i = 0; i <wordItems.size() ; i++) {
+            words[i]=wordItems.get(i).getWord();
+        }
+    }
+
+
+    public String[] getWordArray(){
+       return words;
+    }
+
 
     public String toString(){
         StringBuilder sb1=new StringBuilder();
