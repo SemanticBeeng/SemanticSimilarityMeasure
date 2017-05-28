@@ -214,7 +214,12 @@ public class NeuralNetwork {
     }
 
     double seek(String word, String[] array){
-        return Arrays.asList(array).indexOf(word);
+
+        if (Arrays.asList(array).indexOf(word) == -1){
+            return array.length;
+        } else{
+            return (Arrays.asList(array).indexOf(word)) + 1;
+        }
     }
 
     double calculateError(CSV csvObject , MImatrix miMatrix){
