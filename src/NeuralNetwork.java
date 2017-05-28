@@ -243,20 +243,25 @@ public class NeuralNetwork {
         int i;
         // Train neural network until minError reached or maxSteps exceeded
         double error = 1;
+
+
+
         for (i = 0; i < maxSteps && error > minError; i++) {
             error = 0;
             for (int p = 0; p < inputs.length; p++) {
 
                 double[][] values=inputs[p].getValueMatrixDouble();
                 double[] E=new double[values.length];
+                String[] words=inputs[p].getRmatrix().getRmatrix()[0];
+                MImatrix mim=new MImatrix(words);
 
                 for (int j = 0; j <values.length ; j++) {
                     setInput(values[j]);
                     activate();
-                    E[j]= getOutput()[0];
+                    mim.updateValueAt(j,getOutput()[0]); //update e_j
                 }
-                
-
+                //Now sort MImatrix
+                Collections.sort(mim.getWordItems());
 
 
 

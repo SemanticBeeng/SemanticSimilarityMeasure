@@ -15,7 +15,7 @@ public class MImatrix {
         System.out.println(mim);
     }
 
-    
+
     public MImatrix(String[] words) {
         for (int i = 0; i <words.length ; i++) {
             wordItem wi=new wordItem(words[i]);
