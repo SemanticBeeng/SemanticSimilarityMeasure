@@ -46,7 +46,7 @@ public class Main {
 
 
                     //delete this. This is to avoid the for loop from calculating all 100 terms. This will skip after the first term "layer"
-                    //if (Objects.equals(term, "lawyer")) break;
+                    //if (Objects.equals(term, "complaint")) break;
 
                 }
 
