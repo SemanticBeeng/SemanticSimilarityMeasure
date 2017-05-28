@@ -248,6 +248,7 @@ public class NeuralNetwork {
 
 
         for (i = 0; i < maxSteps && error > minError; i++) {
+
             error = 0;
             for (int p = 0; p < inputs.length; p++) {
 
@@ -289,6 +290,7 @@ public class NeuralNetwork {
                 error+=err;
             }
             error/=inputs.length;
+            System.out.println("Epoch "+(i+1)+" out of "+maxSteps+" | Error ="+error+" (Target: "+minError+")");
         }
 
        // printResult();
