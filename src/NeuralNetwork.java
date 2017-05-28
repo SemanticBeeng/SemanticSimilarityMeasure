@@ -225,16 +225,17 @@ public class NeuralNetwork {
     double calculateError(CSV csvObject , MImatrix miMatrix){
 
         double tempSum = 0;
+        String[] words=miMatrix.getWordArray();
 
         for (int i=0 ; i< Constants.L_GT_WORD_COUNT ; i++){
 
             double x = 0;
+            String qWord=csvObject.getTermList()[i];
 
-            if (seek(csvObject.getTermList()[i] , miMatrix.getWordArray()) < Constants.L_GT_WORD_COUNT){
+            if (seek(qWord ,words) < Constants.L_GT_WORD_COUNT){
                 x = 1;
             } else{
-                x = ((Constants.C_CONSTANT * Constants.L_GT_WORD_COUNT) - seek(csvObject.getTermList()[i] ,
-                        miMatrix.getWordArray()))/ ((Constants.C_CONSTANT * Constants.L_GT_WORD_COUNT) - Constants.L_GT_WORD_COUNT);
+                x = (words.length - seek(qWord ,words))/ (words.length - Constants.L_GT_WORD_COUNT);
             }
 
             tempSum += x;
