@@ -21,14 +21,14 @@ public class Main {
         try {
             File file = new File("src/valueMatrices.ser");
             if (file.exists()) {
-
+                System.out.println("serialized file found. Reading from it");
                 FileInputStream fileIn = new FileInputStream(file);
                 ObjectInputStream in = new ObjectInputStream(fileIn);
                 valueMatrices = (ValueMatrix[]) in.readObject();
                 in.close();
                 fileIn.close();
             } else {
-
+                System.out.println("No serialized File");
                 valueMatrices = new ValueMatrix[100];
                 int i = 0;
                 for (String term : csvObject.getTermList()) {
@@ -40,7 +40,7 @@ public class Main {
                     valueMatrix.setRmatrix(rmatrix);
 
                     valueMatrices[i] = valueMatrix;
-                    System.out.println("Value Matrix for term = " + term + " , done");
+                    System.out.println(i+1 +") Value Matrix for term = " + term + " , done");
 
                     i++;
 
@@ -51,9 +51,7 @@ public class Main {
                 }
 
             }
-
-
-
+            System.out.println("Finished creating all the value matrices");
 
             //Serialize the ValueMatrix Array to src
             FileOutputStream fileOut =
