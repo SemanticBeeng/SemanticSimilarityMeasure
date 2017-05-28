@@ -9,9 +9,10 @@ public class MImatrix {
     String[] words=null;
 
     public static void main(String[] args) {
-        MImatrix mim = new MImatrix(new String[]{"a", "b","c"});
+        MImatrix mim = new MImatrix(new String[]{"a", "b","c","d","e"});
         mim.updateValueAt(1, 0.5);
         mim.updateValueAt(2, 0.1);
+        mim.updateValueAt(4, 0.1);
         System.out.println(mim);
         Collections.sort(mim.getWordItems());
         System.out.println(mim);
@@ -23,6 +24,19 @@ public class MImatrix {
             wordItem wi=new wordItem(words[i]);
             getWordItems().add(wi);
         }
+    }
+    public void sort()
+    {
+        int timeout=10;
+        do {
+            try {
+                Collections.sort(getWordItems());
+                timeout=0; //this breaks the loop
+            }
+            catch(Exception e){
+                timeout--; //need to retry.
+            }
+        }while(timeout>0);
     }
 
     public void updateValueAt(int i,double d){
@@ -94,7 +108,9 @@ public class MImatrix {
             else if(this.val<w.getVal()){
                 return 1;
             }
-            return 0;
+            else{
+                return this.getWord().compareTo(w.getWord());
+            }
         }
     }
 
