@@ -3,6 +3,9 @@
  * Project - SemanticSimilarityMeasure
  */
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.Objects;
 
 public class Main {
@@ -36,9 +39,24 @@ public class Main {
 
 
             //delete this. This is to avoid the for loop from calculating all 100 terms. This will skip after the first term "layer"
-          //  if (Objects.equals(term, "lawyer")) break;
+            if (Objects.equals(term, "lawyer")) break;
 
         }
+
+        //Serialize the ValueMatrix Array to src
+        try {
+            FileOutputStream fileOut =
+                    new FileOutputStream("src/valueMatrices.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(valueMatrices);
+            out.close();
+            fileOut.close();
+            System.out.printf("Serialized data is saved in src/valueMatrices.ser");
+        }catch(IOException exception) {
+            exception.printStackTrace();
+        }
+
+
         //initiate Neural Network
         NeuralNetwork neuralNetwork = new NeuralNetwork(Constants.NN_INPUT_LAYER, Constants.NN_HIDDEN_LAYER, Constants.NN_OUTPUT_LAYER);
         int maxRuns = 50000;

@@ -1,10 +1,11 @@
+import java.io.Serializable;
 import java.util.Arrays;
 
 /**
  * Created by Keetmalin on 5/26/2017
  * Project - SemanticSimilarityMeasure
  */
-public class ValueMatrix {
+public class ValueMatrix implements Serializable{
 
     private Double[][] valueMatrix = new Double[Constants.C_CONSTANT * Constants.L_GT_WORD_COUNT][5];
     private double[][] valueMatrixDouble = new double[Constants.C_CONSTANT * Constants.L_GT_WORD_COUNT][5];

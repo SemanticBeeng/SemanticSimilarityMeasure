@@ -5,7 +5,7 @@ import java.util.Scanner;
  * Created by Keetmalin on 5/25/2017
  * Project - SemanticSimilarityMeasure
  */
-class Word2vecModel {
+class Word2vecModel implements Serializable{
 
     //use C=20 and l=10
     private String[] returnedWords = new String[Constants.TERM_COUNT];

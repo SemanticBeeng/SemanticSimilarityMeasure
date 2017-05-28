@@ -1,10 +1,11 @@
+import java.io.Serializable;
 import java.util.Arrays;
 
 /**
  * Created by Keetmalin on 5/27/2017
  * Project - SemanticSimilarityMeasure
  */
-public class Rmatrix {
+public class Rmatrix implements Serializable {
 
     private String[][] rMatrix = new String[2][Constants.C_CONSTANT * Constants.L_GT_WORD_COUNT ];
     private CSV csvObject;

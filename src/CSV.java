@@ -1,11 +1,12 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.util.Scanner;
 
 /**
  * Created by Keetmalin on 5/25/2017.
  */
-public class CSV {
+public class CSV implements Serializable{
 
     private String[] termList;
     private String[] wordList;
