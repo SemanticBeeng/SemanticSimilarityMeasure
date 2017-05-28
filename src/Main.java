@@ -36,7 +36,7 @@ public class Main {
 
 
             //delete this. This is to avoid the for loop from calculating all 100 terms. This will skip after the first term "layer"
-            if (Objects.equals(term, "lawyer")) break;
+          //  if (Objects.equals(term, "lawyer")) break;
 
         }
         //initiate Neural Network
@@ -44,7 +44,7 @@ public class Main {
         int maxRuns = 50000;
         double minErrorCondition = 0.001;
         neuralNetwork.setInputVector(valueMatrices);
-        neuralNetwork.run(maxRuns, minErrorCondition);
+        neuralNetwork.run(maxRuns, minErrorCondition,csvObject);
 
 
 

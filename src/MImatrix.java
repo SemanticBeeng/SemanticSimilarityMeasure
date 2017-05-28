@@ -29,7 +29,7 @@ public class MImatrix {
     }
 
     public void buildWordArray(){
-        String[] words=new String[wordItems.size()];
+        words=new String[wordItems.size()];
         for (int i = 0; i <wordItems.size() ; i++) {
             words[i]=wordItems.get(i).getWord();
         }

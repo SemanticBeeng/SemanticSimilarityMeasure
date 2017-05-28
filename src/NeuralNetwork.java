@@ -263,7 +263,7 @@ public class NeuralNetwork {
                 Collections.sort(mim.getWordItems());
                 mim.buildWordArray();
 
-                error=calculateError(csvObject , mim);  //"error" is double calculate error returns "float" this might cause problems.
+                double err=calculateError(csvObject , mim);  //"error" is double calculate error returns "float" this might cause problems.
 
 
                 //output = getOutput();
@@ -274,13 +274,15 @@ public class NeuralNetwork {
                  //   error += err;
                 //}
 
-                applyBackpropagation(new double[]{error}); //Only one item in the array because the output layer has only one neuron
+                applyBackpropagation(new double[]{err}); //Only one item in the array because the output layer has only one neuron
+                error+=err;
             }
+            error/=inputs.length;
         }
 
-        printResult();
+       // printResult();
 
-        System.out.println("Sum of squared errors = " + error);
+        System.out.println("Training Error = " + error);
         System.out.println("##### EPOCH " + i+"\n");
         if (i == maxSteps) {
             System.out.println("!Error training try again");
