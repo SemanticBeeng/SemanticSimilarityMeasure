@@ -45,6 +45,10 @@ public class ValueMatrix {
         this.miMatrix = miMatrix;
     }
 
+    public MIMatrix getMiMatrix(){
+        return miMatrix;
+    }
+
     public Double[][] getValueMatrix(){
         return valueMatrix;
     }
