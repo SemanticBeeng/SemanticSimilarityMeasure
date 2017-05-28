@@ -3,21 +3,6 @@
  * Project - SemanticSimilarityMeasure
  */
 
-import edu.cmu.lti.lexical_db.ILexicalDatabase;
-import edu.cmu.lti.lexical_db.NictWordNet;
-import edu.cmu.lti.ws4j.RelatednessCalculator;
-import edu.cmu.lti.ws4j.impl.HirstStOnge;
-import edu.cmu.lti.ws4j.impl.JiangConrath;
-import edu.cmu.lti.ws4j.impl.LeacockChodorow;
-import edu.cmu.lti.ws4j.impl.Lesk;
-import edu.cmu.lti.ws4j.impl.Lin;
-import edu.cmu.lti.ws4j.impl.Path;
-import edu.cmu.lti.ws4j.impl.Resnik;
-import edu.cmu.lti.ws4j.impl.WuPalmer;
-import edu.cmu.lti.ws4j.util.WS4JConfiguration;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 
 public class Main {
@@ -28,7 +13,7 @@ public class Main {
         CSV csvObject = new CSV();
 
 //        ArrayList<ValueMatrix> valueMatrices = new ArrayList<ValueMatrix>();
-//        ArrayList<MIMatrix> miMatrices = new ArrayList<MIMatrix>();
+//        ArrayList<Rmatrix> miMatrices = new ArrayList<Rmatrix>();
 
         ValueMatrix[] valueMatrices = new ValueMatrix[100];
 
@@ -41,8 +26,8 @@ public class Main {
             Matrix matrixObject = new Matrix(term, word2vecModel, csvObject);
             Normalize normalize = new Normalize(matrixObject.getMatrix());
             ValueMatrix valueMatrix = new ValueMatrix(term, csvObject, word2vecModel, normalize);
-            MIMatrix miMatrix = new MIMatrix(term, csvObject, word2vecModel);
-            valueMatrix.setMiMatrix(miMatrix);
+            Rmatrix rmatrix = new Rmatrix(term, csvObject, word2vecModel);
+            valueMatrix.setRmatrix(rmatrix);
 
             valueMatrices[i] = valueMatrix;
             System.out.println("Value Matrix for term = " + term + " , done");

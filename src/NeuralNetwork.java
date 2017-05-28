@@ -217,7 +217,7 @@ public class NeuralNetwork {
         return Arrays.asList(array).indexOf(word);
     }
 
-    float calculateError(CSV csvObject , MIMatrix miMatrix){
+    float calculateError(CSV csvObject , Rmatrix rmatrix){
 
         int tempSum = 0;
 
@@ -225,10 +225,10 @@ public class NeuralNetwork {
 
             int x = 0;
 
-            if (seek(csvObject.getTermList()[i] , miMatrix.getMiMatrix()[1]) < Constants.L_GT_WORD_COUNT){
+            if (seek(csvObject.getTermList()[i] , rmatrix.getRmatrix()[1]) < Constants.L_GT_WORD_COUNT){
                 x = Constants.C_CONSTANT * Constants.L_GT_WORD_COUNT;
             } else{
-                x = Constants.L_GT_WORD_COUNT - seek(csvObject.getTermList()[i] , miMatrix.getMiMatrix()[1]);
+                x = Constants.L_GT_WORD_COUNT - seek(csvObject.getTermList()[i] , rmatrix.getRmatrix()[1]);
             }
 
             tempSum += x;
