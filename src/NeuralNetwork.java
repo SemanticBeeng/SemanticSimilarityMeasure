@@ -265,12 +265,12 @@ public class NeuralNetwork {
                     mim.updateValueAt(j,getOutput()[0]); //update e_j. Use [0] directly because we know the output layer has only one item
                 }
                 //Now sort MImatrix
-                System.out.println();
-                System.out.println(mim.toString());
+                //System.out.println();
+                //System.out.println(mim.toString());
 
                 mim.sort();
 
-                System.out.println(mim.toString());
+               // System.out.println(mim.toString());
 
                 mim.buildWordArray();
 
