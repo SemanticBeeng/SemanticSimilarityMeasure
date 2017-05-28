@@ -50,17 +50,19 @@ public class Main {
 
                 }
 
+                //Serialize the ValueMatrix Array to src
+                FileOutputStream fileOut =
+                        new FileOutputStream("src/valueMatrices.ser");
+                ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                out.writeObject(valueMatrices);
+                out.close();
+                fileOut.close();
+                System.out.printf("Serialized data is saved in src/valueMatrices.ser");
+
             }
             System.out.println("Finished creating all the value matrices");
 
-            //Serialize the ValueMatrix Array to src
-            FileOutputStream fileOut =
-                    new FileOutputStream("src/valueMatrices.ser");
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(valueMatrices);
-            out.close();
-            fileOut.close();
-            System.out.printf("Serialized data is saved in src/valueMatrices.ser");
+
         } catch (IOException exception) {
             exception.printStackTrace();
         } catch (ClassNotFoundException c) {
