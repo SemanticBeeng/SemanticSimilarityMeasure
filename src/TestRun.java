@@ -41,6 +41,12 @@ public class TestRun {
                 System.out.println("reading neuralNetwork object from file");
                 in.close();
                 fileIn.close();
+
+                neuralNetwork.setInputVector(valueMatrices);
+                neuralNetwork.TestNN(csvObject,k);
+
+
+
             } else {
                 System.out.println("Serialized Neural Network not found");
 

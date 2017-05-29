@@ -90,7 +90,7 @@ public class Main {
                 int maxRuns = 50000;
                 double minErrorCondition = 0.001;
                 neuralNetwork.setInputVector(valueMatrices);
-                neuralNetwork.run(maxRuns, minErrorCondition, csvObject);
+                neuralNetwork.TrainNN(maxRuns, minErrorCondition, csvObject);
 
                 System.out.println("Neural Network Training Done");
 

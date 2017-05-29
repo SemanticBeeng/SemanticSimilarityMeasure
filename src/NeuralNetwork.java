@@ -22,6 +22,7 @@ public class NeuralNetwork implements Serializable{
     final Neuron bias = new Neuron();
     final int[] layers;
     final int randomWeightMultiplier = 1;
+    MImatrix mim=null;
 
     final double epsilon = 0.00000000001;
 
@@ -223,10 +224,10 @@ public class NeuralNetwork implements Serializable{
         }
     }
 
-    double calculateError(CSV csvObject , MImatrix miMatrix, int p){
+    double calculateError(CSV csvObject ,  String[] words, int p){
 
         double tempSum = 0;
-        String[] words=miMatrix.getWordArray();
+
         int count=0;
         String[] goldenStandardWords = csvObject.getWordList()[p].split(",");
 
@@ -260,7 +261,7 @@ public class NeuralNetwork implements Serializable{
         //return 1-(tempSum/(Constants.L_GT_WORD_COUNT));
     }
 
-    void run(int maxSteps, double minError,CSV csvObject) {
+    void TrainNN(int maxSteps, double minError, CSV csvObject) {
         int i;
         // Train neural network until minError reached or maxSteps exceeded
         double error = 1;
@@ -272,39 +273,7 @@ public class NeuralNetwork implements Serializable{
             error = 0;
             for (int p = 0; p < inputs.length; p++) {
 
-                double[][] values=inputs[p].getValueMatrixDouble();
-                String[] words=inputs[p].getRmatrix().getRmatrix()[0];
-                MImatrix mim=new MImatrix(words);
-
-                for (int j = 0; j <values.length ; j++) {
-                    setInput(values[j]);
-                    activate();
-                    double op=getOutput()[0];
-                    if(Double.isNaN(op)){
-                        op=0;
-                    }
-                    mim.updateValueAt(j,getOutput()[0]); //update e_j. Use [0] directly because we know the output layer has only one item
-                }
-                //Now sort MImatrix
-                //System.out.println();
-                //System.out.println(mim.toString());
-
-                mim.sort();
-
-               // System.out.println(mim.toString());
-
-                mim.buildWordArray();
-
-                double err=calculateError(csvObject , mim, p);  //"error" is double calculate error returns "float" this might cause problems.
-
-
-                //output = getOutput();
-                //resultOutputs[p] = output;
-
-                //for (int j = 0; j < expectedOutputs[p].length; j++) {
-                //    double err = Math.pow(output[j] - expectedOutputs[p][j], 2);
-                 //   error += err;
-                //}
+                double err = ActivateNN(csvObject, p,-1);
 
                 applyBackpropagation(new double[]{err}); //Only one item in the array because the output layer has only one neuron
                 error+=err;
@@ -323,6 +292,98 @@ public class NeuralNetwork implements Serializable{
             printAllWeights();
             printWeightUpdate();
         }
+    }
+
+    public void TestNN(CSV csvObject,int k) {
+
+        double error = 0;
+        double recall = 0;
+
+
+        for (int p = 0; p < inputs.length; p++) {
+
+            double err = ActivateNN(csvObject, p,k);
+            double rec=calculateRecall(csvObject,p,k);
+
+            error += err;
+            recall+=rec;
+        }
+        error /= inputs.length;
+
+
+        System.out.println("Testing Error = " + error);
+        System.out.println("Testing Recall = " + recall);
+
+    }
+
+
+    double calculateRecall(CSV csvObject , int p,int k){
+
+        //this will keep track of G and W intersections
+        int count = 0;
+        String[] goldenStandardWords = csvObject.getWordList()[p].split(",");
+
+
+
+
+        for (int i = 0 ; i < Constants.L_GT_WORD_COUNT ; i++){
+            if (Arrays.asList(validWords).contains(goldenStandardWords[i])){
+                count++;
+            }
+        }
+
+        return count/Constants.L_GT_WORD_COUNT;
+    }
+
+
+    String[] validWords=null;
+
+    private double ActivateNN(CSV csvObject, int p,int k) {
+        double[][] values=inputs[p].getValueMatrixDouble();
+        String[] words=inputs[p].getRmatrix().getRmatrix()[0];
+        if(k<0){
+            k=words.length;
+        }
+        mim=new MImatrix(words);
+
+        for (int j = 0; j <values.length ; j++) {
+            setInput(values[j]);
+            activate();
+            double op=getOutput()[0];
+            if(Double.isNaN(op)){
+                op=0;
+            }
+            mim.updateValueAt(j,getOutput()[0]); //update e_j. Use [0] directly because we know the output layer has only one item
+        }
+        //Now sort MImatrix
+        //System.out.println();
+        //System.out.println(mim.toString());
+
+        mim.sort();
+
+        // System.out.println(mim.toString());
+
+        mim.buildWordArray();
+
+
+        validWords=createPrunedArray(mim.getWordArray(),k);
+
+        return calculateError(csvObject , validWords, p);
+    }
+
+    private String[] createPrunedArray(String[] original,int k){
+          String[] newArray=new String[k];
+        for (int i = 0; i <k ; i++) {
+            if(i<original.length){
+                newArray[i]=original[i];
+            }
+            else{
+                newArray[i]=""; //Just in case
+            }
+        }
+
+
+        return newArray;
     }
 
     void printResult()
