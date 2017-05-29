@@ -71,13 +71,47 @@ public class Main {
             return;
         }
 
+        NeuralNetwork neuralNetwork = null;
 
-        //initiate Neural Network
-        NeuralNetwork neuralNetwork = new NeuralNetwork(Constants.NN_INPUT_LAYER, Constants.NN_HIDDEN_LAYER, Constants.NN_OUTPUT_LAYER);
-        int maxRuns = 50000;
-        double minErrorCondition = 0.001;
-        neuralNetwork.setInputVector(valueMatrices);
-        neuralNetwork.run(maxRuns, minErrorCondition, csvObject);
+
+        try{
+            File file = new File("src/neuralNetwork.ser");
+            if (file.exists()) {
+                FileInputStream fileIn = new FileInputStream(file);
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                neuralNetwork = (NeuralNetwork) in.readObject();
+                System.out.println("reading neuralNetwork object from file");
+                in.close();
+                fileIn.close();
+            } else {
+
+                //initiate Neural Network
+                neuralNetwork = new NeuralNetwork(Constants.NN_INPUT_LAYER, Constants.NN_HIDDEN_LAYER, Constants.NN_OUTPUT_LAYER);
+                int maxRuns = 50000;
+                double minErrorCondition = 0.001;
+                neuralNetwork.setInputVector(valueMatrices);
+                neuralNetwork.run(maxRuns, minErrorCondition, csvObject);
+
+                System.out.println("Neural Network Training Done");
+
+                //Serialize the ValueMatrix Array to src
+                FileOutputStream fileOut =
+                        new FileOutputStream("src/neuralNetwork.ser");
+                ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                out.writeObject(neuralNetwork);
+                out.close();
+                fileOut.close();
+                System.out.printf("Serialized data is saved in src/neuralNetwork.ser");
+
+
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
 
     }

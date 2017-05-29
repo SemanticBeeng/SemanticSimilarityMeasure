@@ -1,10 +1,12 @@
+import java.io.Serializable;
+
 /**
  * Created by Keetmalin on 5/27/2017
  * Project - SemanticSimilarityMeasure
  */
 
 
-public class Connection {
+public class Connection implements Serializable{
     double weight = 0;
     double prevDeltaWeight = 0; // for momentum
     double deltaWeight = 0;

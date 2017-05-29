@@ -2,9 +2,10 @@
  * Created by Keetmalin on 5/27/2017
  * Project - SemanticSimilarityMeasure
  */
+import java.io.Serializable;
 import java.util.*;
 
-public class Neuron {
+public class Neuron implements Serializable {
     static int counter = 0;
     final public int id;  // auto increment, starts at 0
     Connection biasConnection;

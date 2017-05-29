@@ -4,10 +4,11 @@
  */
 
 
+import java.io.Serializable;
 import java.text.*;
 import java.util.*;
 
-public class NeuralNetwork {
+public class NeuralNetwork implements Serializable{
     static {
         Locale.setDefault(Locale.ENGLISH);
     }
