@@ -226,24 +226,36 @@ public class NeuralNetwork {
 
         double tempSum = 0;
         String[] words=miMatrix.getWordArray();
+        int count=0;
+
 
         for (int i=0 ; i< Constants.L_GT_WORD_COUNT ; i++){
 
             double x = 0;
             String qWord=csvObject.getTermList()[i];
+            double seekResult=seek(qWord ,words);
 
-            if (seek(qWord ,words) < Constants.L_GT_WORD_COUNT){
+            if (seekResult < Constants.L_GT_WORD_COUNT){
                 x = 1;
             } else{
-                x = (words.length - seek(qWord ,words))/ (words.length - Constants.L_GT_WORD_COUNT);
+                x = (words.length - seekResult)/ (words.length - Constants.L_GT_WORD_COUNT);
             }
 
             tempSum += x;
-
+            if(seekResult<words.length){
+                count++;
+            }
 
         }
 
-        return 1-(tempSum/(Constants.L_GT_WORD_COUNT));
+        if(count>0){
+            return  1-(tempSum/count);
+        }
+        else{
+            return 1;
+        }
+
+        //return 1-(tempSum/(Constants.L_GT_WORD_COUNT));
     }
 
     void run(int maxSteps, double minError,CSV csvObject) {
