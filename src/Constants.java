@@ -4,11 +4,12 @@
  */
 class Constants {
 
-    public static void setTermCount(int termCount) {
-        TERM_COUNT = termCount;
+    static int TERM_COUNT = 100;
+
+    public static void setcConstant(int cConstant) {
+        C_CONSTANT = cConstant;
     }
 
-    static int TERM_COUNT = 100;
     static int C_CONSTANT = 21;
     static int L_GT_WORD_COUNT = 10;
 

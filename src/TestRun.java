@@ -11,7 +11,7 @@ public class TestRun {
 
         //SET K VALUE AT THE BEGINNING
         int k = 20;
-        Constants.setTermCount(k/Constants.L_GT_WORD_COUNT);
+        Constants.setcConstant(k/Constants.L_GT_WORD_COUNT);
 
         //reading from CSV file
         CSV csvObject = new CSV();
