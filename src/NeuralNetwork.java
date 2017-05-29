@@ -31,6 +31,7 @@ public class NeuralNetwork implements Serializable{
 
     // Inputs for xor problem
     ValueMatrix[] inputs;
+    String[] validWords=null;
 
     // Corresponding outputs, xor training data
     final double expectedOutputs[][] = { { 0 }, { 1 }, { 1 }, { 0 } };
@@ -303,7 +304,7 @@ public class NeuralNetwork implements Serializable{
         for (int p = 0; p < inputs.length; p++) {
 
             double err = ActivateNN(csvObject, p,k);
-            double rec=calculateRecall(csvObject,p,k);
+            double rec=calculateRecall(csvObject,p);
 
             error += err;
             recall+=rec;
@@ -317,7 +318,7 @@ public class NeuralNetwork implements Serializable{
     }
 
 
-    double calculateRecall(CSV csvObject , int p,int k){
+    double calculateRecall(CSV csvObject , int p){
 
         //this will keep track of G and W intersections
         int count = 0;
@@ -336,7 +337,7 @@ public class NeuralNetwork implements Serializable{
     }
 
 
-    String[] validWords=null;
+
 
     private double ActivateNN(CSV csvObject, int p,int k) {
         double[][] values=inputs[p].getValueMatrixDouble();
