@@ -249,7 +249,7 @@ public class NeuralNetwork {
         }
 
         if(count>0){
-            return  1-(tempSum/count);
+            return  1-((tempSum+Double.MIN_VALUE)/(count+Double.MIN_VALUE));
         }
         else{
             return 1;
