@@ -19,7 +19,7 @@ public class Main {
         Word2vecModel word2vecModel = new Word2vecModel();
 
         try {
-            File file = new File("src/valueMatrices.ser");
+            File file = new File("ValueMatrices/valueMatrices.ser");
             if (file.exists()) {
                 System.out.println("serialized file found. Reading from it");
                 FileInputStream fileIn = new FileInputStream(file);
