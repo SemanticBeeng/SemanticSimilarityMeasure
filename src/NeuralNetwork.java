@@ -223,17 +223,18 @@ public class NeuralNetwork implements Serializable{
         }
     }
 
-    double calculateError(CSV csvObject , MImatrix miMatrix){
+    double calculateError(CSV csvObject , MImatrix miMatrix, int p){
 
         double tempSum = 0;
         String[] words=miMatrix.getWordArray();
         int count=0;
+        String[] goldenStandardWords = csvObject.getWordList()[p].split(",");
 
 
         for (int i=0 ; i< Constants.L_GT_WORD_COUNT ; i++){
 
             double x = 0;
-            String qWord=csvObject.getTermList()[i];
+            String qWord=goldenStandardWords[i];
             double seekResult=seek(qWord ,words);
 
             if (seekResult < Constants.L_GT_WORD_COUNT){
@@ -294,7 +295,7 @@ public class NeuralNetwork implements Serializable{
 
                 mim.buildWordArray();
 
-                double err=calculateError(csvObject , mim);  //"error" is double calculate error returns "float" this might cause problems.
+                double err=calculateError(csvObject , mim, p);  //"error" is double calculate error returns "float" this might cause problems.
 
 
                 //output = getOutput();
