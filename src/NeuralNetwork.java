@@ -333,7 +333,7 @@ public class NeuralNetwork implements Serializable{
             }
         }
 
-        return count/Constants.L_GT_WORD_COUNT;
+        return (double)count/ (double) Constants.L_GT_WORD_COUNT;
     }
 
 
