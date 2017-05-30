@@ -40,24 +40,52 @@ public class PrReMath {
         String[] goldenStandardWords = csvObject.getWordList()[p].split(",");
 
 
-        for (int i=0 ; i< Constants.L_GT_WORD_COUNT ; i++){
+//        for (int i=0 ; i< Constants.L_GT_WORD_COUNT ; i++){
+//
+//            double x = 0;
+//            String qWord=goldenStandardWords[i];
+//            double seekResult=seek(qWord ,words);
+//
+//            if (seekResult < Constants.L_GT_WORD_COUNT){
+//                x = 1;
+//            } else{
+//                x = (words.length - seekResult)/ (words.length - Constants.L_GT_WORD_COUNT);
+//            }
+//
+//            tempSum += x;
+//            if(seekResult<words.length){
+//                count++;
+//            }
+//
+//        }
 
+
+        for (int i = 0; i <words.length ; i++) {
             double x = 0;
-            String qWord=goldenStandardWords[i];
+            String qWord=words[i];
+            double seekResultG=seek(qWord ,goldenStandardWords); //see if the word is a golden word
             double seekResult=seek(qWord ,words);
 
-            if (seekResult < Constants.L_GT_WORD_COUNT){
-                x = 1;
-            } else{
-                x = (words.length - seekResult)/ (words.length - Constants.L_GT_WORD_COUNT);
+            if(seekResultG<Constants.L_GT_WORD_COUNT){ //It is a golden word
+                if (seekResult < Constants.L_GT_WORD_COUNT){
+                    x = 1; //Reward for being in golden range
+                } else{
+                    x = (words.length - seekResult)/ (words.length - Constants.L_GT_WORD_COUNT); //penalize for being outside golden range
+                }
             }
-
+            else{
+                if (seekResult < Constants.L_GT_WORD_COUNT){
+                    x = 0; //Penalize for being in golden range
+                } else{
+                    x = 1-((words.length - seekResult)/ (words.length - Constants.L_GT_WORD_COUNT)); //reward for being out side of golden range
+                }
+            }
             tempSum += x;
-            if(seekResult<words.length){
-                count++;
-            }
+            count++;
+
 
         }
+
 
         if(count>0){
             return  1-((tempSum+Double.MIN_VALUE)/(count+Double.MIN_VALUE));
