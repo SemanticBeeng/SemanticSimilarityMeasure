@@ -109,7 +109,7 @@ public class PrReMath {
         else{
             errNG= 1;
         }
-        return (errG+errNG)/2;
+        return (errG*(words.length-Constants.L_GT_WORD_COUNT)+errNG*Constants.L_GT_WORD_COUNT)/words.length;
 
         //return 1-(tempSum/(Constants.L_GT_WORD_COUNT));
     }
