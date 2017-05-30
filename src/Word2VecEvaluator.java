@@ -14,7 +14,6 @@ public class Word2VecEvaluator {
             //Loop for G, LR and LL files one by one {  //Keet must update this DONE
             String fielname = "CSV/Word2VecEvaluator/"+fileNames[i]; //G, LR and LL files //Keet must update this DONE
             CSV csvObject = new CSV(); //Load this //Keet must update this DONE
-            String[] allWords = null; //This is the 0th line of rMatrix //Keet must update this
             int numOfInptLines = 0;  //Keet must update this
 
 
@@ -24,8 +23,11 @@ public class Word2VecEvaluator {
             int[] K = {20, 50, 100, 200, 500};
 
             for (int k : K) {
-                String[] validWords = createPrunedArray(allWords, k);
+
                 for (int p = 0; p < numOfInptLines; p++) {
+                    String[] allWords = null; //This is the 0th line of the rMatrix of p th line //Keet must update this
+                    String[] validWords = createPrunedArray(allWords, k);
+
                     PrReMath prMath = PrReMath.getInstance();
                     double err = prMath.calculateError(csvObject, validWords, p);
                     double rec = prMath.calculateRecall(csvObject, validWords, p);
