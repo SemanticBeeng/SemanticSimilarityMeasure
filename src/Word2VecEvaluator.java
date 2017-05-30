@@ -39,10 +39,10 @@ public class Word2VecEvaluator {
                 recall /= numOfInptLines;
 
                 System.out.println("k = " + k);
-                System.out.println("Error = " + error);
-                System.out.println("Precision = " + (1-error));
-                System.out.println("Recall = " + recall);
-                System.out.println("F1 = " + (2*(1-error) * recall / ((1-error) + recall)));
+               // System.out.printf("Error = %.2f\n", error);
+                System.out.printf("Precision = %.2f\n", (1-error));
+                System.out.printf("Recall = %.2f\n", recall);
+                System.out.printf("F1 = %.2f\n", (2*(1-error) * recall / ((1-error) + recall)));
                 System.out.println("..............");
             }
 
