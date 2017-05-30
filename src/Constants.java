@@ -10,7 +10,7 @@ class Constants {
         C_CONSTANT = cConstant;
     }
 
-    static int C_CONSTANT = 21;
+    static int C_CONSTANT = 50;
     static int L_GT_WORD_COUNT = 10;
 
     //Constants related to Neural Network
