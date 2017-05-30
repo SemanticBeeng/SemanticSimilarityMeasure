@@ -1,10 +1,11 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
 /**
  * Created by Nisansa on 5/27/2017.
  */
-public class MImatrix {
+public class MImatrix implements Serializable{
     private ArrayList<wordItem> wordItems=new ArrayList<>();
     String[] words=null;
 
@@ -77,7 +78,7 @@ public class MImatrix {
 
 
 
-    class wordItem implements Comparable{
+    class wordItem implements Comparable,Serializable{
         private String word="";
         private double val=0;
 
