@@ -11,7 +11,7 @@ public class TestRun {
 
         //SET K VALUE AT THE BEGINNING
         int k = 20;
-        Constants.setcConstant(k/Constants.L_GT_WORD_COUNT);
+        Constants.setcConstant(2*k/Constants.L_GT_WORD_COUNT);
 
         //reading from CSV file
         CSV csvObject = new CSV();
@@ -20,7 +20,7 @@ public class TestRun {
 
         try {
             //read value matrices for k values
-            File file = new File("ValueMatrices/valueMatricesK"+k+".ser");
+            File file = new File("ValueMatrices/valueMatricesK"+2*k+".ser");
             if (file.exists()) {
                 System.out.println("serialized file found. Reading from it");
                 FileInputStream fileIn = new FileInputStream(file);
