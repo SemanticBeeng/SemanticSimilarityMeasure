@@ -19,7 +19,7 @@ public class Main {
         Word2vecModel word2vecModel = new Word2vecModel();
 
         try {
-            File file = new File("ValueMatrices/training_data/valueMatrices.ser");
+            File file = new File("src/test.ser");
             if (file.exists()) {
                 System.out.println("serialized file found. Reading from it");
                 FileInputStream fileIn = new FileInputStream(file);
@@ -87,7 +87,7 @@ public class Main {
 
                 //initiate Neural Network
                 neuralNetwork = new NeuralNetwork(Constants.NN_INPUT_LAYER, Constants.NN_HIDDEN_LAYER, Constants.NN_OUTPUT_LAYER);
-                int maxRuns = 50000;
+                int maxRuns = 1000;
                 double minErrorCondition = 0.001;
                 neuralNetwork.setInputVector(valueMatrices);
                 neuralNetwork.TrainNN(maxRuns, minErrorCondition, csvObject);
