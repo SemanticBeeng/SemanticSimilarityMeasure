@@ -9,20 +9,22 @@ public class Word2VecEvaluator {
     }
 
     private void run(){
-        //Loop for G, LR and LL files one by one {  //Keet must update this
-            String fielname=""; //G, LR and LL files //Keet must update this
-            CSV csvObject=null; //Load this //Keet must update this
-            String[] allWords=null; //This is the 0th line of rMatrix //Keet must update this
-            int numOfInptLines=0;  //Keet must update this
+        String[] fileNames = {"Word2VecResult[G].csv" , "Word2VecResult[LR].csv", "Word2VecResult[LL].csv"};
+        for (int i = 0 ; i <3 ; i++) {
+            //Loop for G, LR and LL files one by one {  //Keet must update this DONE
+            String fielname = "CSV/Word2VecEvaluator/"+fileNames[i]; //G, LR and LL files //Keet must update this DONE
+            CSV csvObject = new CSV(); //Load this //Keet must update this DONE
+            String[] allWords = null; //This is the 0th line of rMatrix //Keet must update this
+            int numOfInptLines = 0;  //Keet must update this
 
 
-            double error=0;
-            double recall=0;
+            double error = 0;
+            double recall = 0;
 
-            int[] K={20,50,100,200,500};
+            int[] K = {20, 50, 100, 200, 500};
 
-            for (int k:K) {
-                String[] validWords= createPrunedArray(allWords, k);
+            for (int k : K) {
+                String[] validWords = createPrunedArray(allWords, k);
                 for (int p = 0; p < numOfInptLines; p++) {
                     PrReMath prMath = PrReMath.getInstance();
                     double err = prMath.calculateError(csvObject, validWords, p);
@@ -37,6 +39,7 @@ public class Word2VecEvaluator {
                 System.out.println("Error = " + error);
                 System.out.println("Recall = " + recall);
             }
+        }
         //}  //uncomment //Keet must update this
     }
 
