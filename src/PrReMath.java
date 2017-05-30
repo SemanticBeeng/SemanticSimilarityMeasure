@@ -34,9 +34,11 @@ public class PrReMath {
 
     public double calculateError(CSV csvObject ,  String[] words, int p){
 
-        double tempSum = 0;
+        double tempSumG = 0;
+        double tempSumNG = 0;
 
-        int count=0;
+        int countG=0;
+        int countNG=0;
         String[] goldenStandardWords = csvObject.getWordList()[p].split(",");
 
 
@@ -72,27 +74,42 @@ public class PrReMath {
                 } else{
                     x = (words.length - seekResult)/ (words.length - Constants.L_GT_WORD_COUNT); //penalize for being outside golden range
                 }
+                tempSumG += x;
+                countG++;
             }
             else{
                 if (seekResult < Constants.L_GT_WORD_COUNT){
                     x = 0; //Penalize for being in golden range
                 } else{
-                    x = 1-((words.length - seekResult)/ (words.length - Constants.L_GT_WORD_COUNT)); //reward for being out side of golden range
+                    x = 1; //-((words.length - seekResult)/ (words.length - Constants.L_GT_WORD_COUNT)); //reward for being out side of golden range
                 }
+                tempSumNG += x;
+                countNG++;
             }
-            tempSum += x;
-            count++;
+
 
 
         }
+        double errG=0;
+        double errNG=0;
 
 
-        if(count>0){
-            return  1-((tempSum+Double.MIN_VALUE)/(count+Double.MIN_VALUE));
+
+
+        if(countG>0){
+            errG=  1-((tempSumG+Double.MIN_VALUE)/(countG+Double.MIN_VALUE));
         }
         else{
-            return 1;
+            errG= 1;
         }
+
+        if(countNG>0){
+            errNG=  1-((tempSumNG+Double.MIN_VALUE)/(countNG+Double.MIN_VALUE));
+        }
+        else{
+            errNG= 1;
+        }
+        return (errG+errNG)/2;
 
         //return 1-(tempSum/(Constants.L_GT_WORD_COUNT));
     }
