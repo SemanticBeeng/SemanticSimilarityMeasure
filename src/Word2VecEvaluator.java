@@ -25,7 +25,7 @@ public class Word2VecEvaluator {
             for (int k : K) {
 
                 for (int p = 0; p < numOfInptLines; p++) {
-                    String[] allWords = null; //This is the 0th line of the rMatrix of p th line //Keet must update this
+                    String[] allWords = null; //This is the 0th row of the rMatrix of p th input line //Keet must update this
                     String[] validWords = createPrunedArray(allWords, k);
 
                     PrReMath prMath = PrReMath.getInstance();
