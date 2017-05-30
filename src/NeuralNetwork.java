@@ -313,6 +313,7 @@ public class NeuralNetwork implements Serializable{
 
 
         System.out.println("Testing Error = " + error);
+        System.out.println("Testing Precision = " + (1-error));
         System.out.println("Testing Recall = " + recall);
 
     }
