@@ -10,7 +10,7 @@ public class TestRun {
     public static void main(String[] args) {
 
         //SET K VALUE AT THE BEGINNING
-        int k = 20;
+        int k = 500;
         Constants.setcConstant(2*k/Constants.L_GT_WORD_COUNT);
 
         //reading from CSV file
